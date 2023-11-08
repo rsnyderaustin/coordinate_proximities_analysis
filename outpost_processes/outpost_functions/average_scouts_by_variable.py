@@ -15,8 +15,8 @@ def is_valid_value(value):
     return value and not pd.isna(value)
 
 
-def scanning_beyond_scout_range(distance, mile_range):
-    return distance > mile_range
+def scanning_beyond_scout_range(distance, distance_range):
+    return distance > distance_range
 
 
 def determine_measure_avg(count, total_sum):
@@ -25,16 +25,16 @@ def determine_measure_avg(count, total_sum):
     return float(total_sum) / count
 
 
-def average_scouts_by_variable(outpost: OutpostData, year, mile_range, variable):
+def average_scouts_by_variable(outpost: OutpostData, time_interval, distance_range, variable):
 
-    sorted_distances = sort_distances_to_scouts(distances=outpost.distances_to_scouts[year])
+    sorted_distances = sort_distances_to_scouts(distances=outpost.distances_to_scouts[time_interval])
 
     count = 0
     total_sum = 0
 
     for distance, scouts_at_same_distance in sorted_distances:
         if scanning_beyond_scout_range(distance=distance,
-                                       mile_range=mile_range):
+                                       distance_range=distance_range):
             return determine_measure_avg(count=count,
                                          total_sum=total_sum)
         for scout in scouts_at_same_distance:
@@ -48,6 +48,6 @@ def average_scouts_by_variable(outpost: OutpostData, year, mile_range, variable)
             total_sum += variable_value
             count += 1
 
-    # Reached end of function without exceeding specified mile_range, so fill outpost_processes value with final result
+    # Reached end of function without exceeding specified distance_range, so fill outpost_processes value with final result
     return determine_measure_avg(count=count,
                                  total_sum=total_sum)

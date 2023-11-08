@@ -15,11 +15,11 @@ def is_valid_value(value):
     return value and not pd.isna(value)
 
 
-def scanning_beyond_scout_range(distance, mile_range):
-    return distance > mile_range
+def scanning_beyond_scout_range(distance, distance_range):
+    return distance > distance_range
 
 
-def count_scouts_by_variable(outpost: OutpostData, year, mile_range, variable, target_value):
+def count_scouts_by_variable(outpost: OutpostData, time_interval, distance_range, variable, target_value):
 
     def scout_data_and_target_value_are_compatible_data_types(scout_value, target_value):
         if is_number(scout_value) and is_number(target_value):
@@ -27,13 +27,13 @@ def count_scouts_by_variable(outpost: OutpostData, year, mile_range, variable, t
         else:
             return type(scout_value) == type(target_value)
 
-    sorted_distances = sort_distances_to_scouts(distances=outpost.distances_to_scouts[year])
+    sorted_distances = sort_distances_to_scouts(distances=outpost.distances_to_scouts[time_interval])
 
     count = 0
 
     for distance, scout_list in sorted_distances:
         if scanning_beyond_scout_range(distance=distance,
-                                       mile_range=mile_range):
+                                       distance_range=distance_range):
             return count
         for scout in scout_list:
             variable_value = scout.data[variable]
@@ -47,5 +47,5 @@ def count_scouts_by_variable(outpost: OutpostData, year, mile_range, variable, t
             if variable_value == target_value:
                 count += 1
 
-    # Reached end of function without exceeding specified mile_range, so return the final count
+    # Reached end of function without exceeding specified distance_range, so return the final count
     return count

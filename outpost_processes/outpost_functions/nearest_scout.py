@@ -5,9 +5,9 @@ def sort_distances_to_scouts(distances: dict):
     return sorted(distances.items())
 
 
-def nearest_scout(outpost: OutpostData, year):
+def nearest_scout(outpost: OutpostData, time_interval):
     try:
-        sorted_distances = sort_distances_to_scouts(distances=outpost.distances_to_scouts[year])
+        sorted_distances = sort_distances_to_scouts(distances=outpost.distances_to_scouts[time_interval])
     except KeyError:
         return None
 

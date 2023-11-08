@@ -38,23 +38,23 @@ def extract_dataframe_by_columns(file_path, column_names, sheet_name=None):
     return df[column_names]
 
 
-def file_name_contains_a_valid_year(file_name, years):
+def file_name_contains_a_valid_time_interval(file_name, time_intervals):
     pattern = r'\d{4}'
     match = re.search(pattern, file_name)
     if match:
-        year_match = match.group()
-        if year_match in years:
-            return year_match
+        time_interval_match = match.group()
+        if time_interval_match in time_intervals:
+            return time_interval_match
     else:
         return False
 
 
-def extract_year_dataframes(folder_path, years, sheet_name=None):
-    files_by_year = {}
+def extract_time_interval_dataframes(folder_path, time_intervals, sheet_name=None):
+    files_by_time_interval = {}
     file_names = os.listdir(folder_path)
     for file_name in file_names:
-        year_result = file_name_contains_a_valid_year(file_name=file_name, years=years)
-        if year_result:
+        time_interval_result = file_name_contains_a_valid_time_interval(file_name=file_name, time_intervals=time_intervals)
+        if time_interval_result:
             file_path = os.path.join(folder_path, file_name)
-            files_by_year[year_result] = extract_dataframe(file_path, sheet_name)
-    return files_by_year
+            files_by_time_interval[time_interval_result] = extract_dataframe(file_path, sheet_name)
+    return files_by_time_interval

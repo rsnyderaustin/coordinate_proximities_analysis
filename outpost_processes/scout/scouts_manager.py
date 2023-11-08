@@ -1,14 +1,13 @@
-from coordinate_proximity_analysis.outpost_processes.scout.scout_data import ScoutData
-import pandas as pd
+from outpost_processes.scout import scout_data
 
 
 class ScoutsManager:
 
     def __init__(self):
-        # year: { coordinate: Scout }
-        self.scouts_by_year = {}
+        # time_interval: { coordinate: Scout }
+        self.scouts_by_time_interval = {}
 
-    def create_scouts(self, dataframes_by_year: dict, lat_column_name: str, lon_column_name: str,
+    def create_scouts(self, dataframes_by_time_interval: dict, lat_column_name: str, lon_column_name: str,
                       extra_column_names: list):
 
         def get_coordinate(df, latitude_column_name, longitude_column_name):
@@ -17,14 +16,14 @@ class ScoutsManager:
             coordinate = (latitude, longitude)
             return coordinate
 
-        for year, df in dataframes_by_year.items():
+        for time_interval, df in dataframes_by_time_interval.items():
             coordinates = []
-            self.scouts_by_year.setdefault(year, {})
+            self.scouts_by_time_interval.setdefault(time_interval, {})
             for row_index in df.index:
                 coordinate = get_coordinate(df, lat_column_name, lon_column_name)
                 coordinates.append(coordinate)
-                new_scout = ScoutData(coordinate=coordinate)
-                self.scouts_by_year[year].setdefault(coordinate, []).append(new_scout)
+                new_scout = scout_data.ScoutData(coordinate=coordinate)
+                self.scouts_by_time_interval[time_interval].setdefault(coordinate, []).append(new_scout)
 
                 if not extra_column_names:
                     continue

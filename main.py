@@ -1,8 +1,8 @@
 from environment_management.environment_manager import EnvironmentManager
 
 env_manager = EnvironmentManager(time_intervals=2022,
-                                 outpost_file_path="C:/Users/austisnyder/InputsOutputsFolder/OutputProgrammingFilesHere/nhgis_filtered_county_subs.csv",
-                                 scout_folder_path="K:/DOCUMENT/DENTAL/Year_end_data/Yearend_2022/DDS Primary Input/",
+                                 outpost_file_path='',
+                                 scout_folder_path='',
                                  outpost_lat_col_name='latitude',
                                  outpost_lon_col_name='longitude',
                                  outpost_extra_col_names='population',

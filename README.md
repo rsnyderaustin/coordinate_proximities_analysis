@@ -9,7 +9,8 @@ outposts analysis.
 ### Project Code and Implementation
 The overall program is managed through the EnvironmentManager class. Initializing an EnvironmentManager class object 
 is the first step when using this program. See the documentation for details. After creating the EnvironmentManager 
-class object, functions can be called. Each function call adds to the function stack in the FunctionStack class.
+class object, functions can be called. Each function call adds to the function stack in an automatically generated 
+FunctionStack class object.
 
 ### Class Usage
 1) Instantiate an EnvironmentManager object
